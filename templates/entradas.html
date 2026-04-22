@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="titulo">Ingreso de nuevo activo</h2>
+
+<form method="POST" class="form-box">
+
+<div class="row-2">
+    <div class="campo">
+        <label>Área</label>
+        <select name="id_area" id="area" onchange="mostrarUbicacion()" required>
+            <option value="">Seleccione</option>
+            {% for a in areas %}
+            <option value="{{ a.id_area }}" data-ubicacion="{{ a.ubicacion }}">
+                {{ a.nombre_area }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>Ubicación</label>
+        <input type="text" id="ubicacion" readonly placeholder="Automático">
+    </div>
+</div>
+
+<div class="row-2">
+    <div class="campo">
+        <label>Responsable</label>
+        <select name="id_responsable" required>
+            {% for r in responsables %}
+            <option value="{{ r.id_responsable }}">{{ r.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>Tipo</label>
+        <select name="id_tipo" id="tipo" onchange="mostrarDepreciacion()" required>
+            <option value="">Seleccione</option>
+            {% for t in tipos %}
+            <option value="{{ t.id_tipo }}" data-dep="{{ t.depreciacion }}">
+                {{ t.nombre_tipo }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="row-2">
+    <div class="campo">
+        <label>Uso</label>
+        <select name="id_uso" required>
+            <option value="">Seleccione</option>
+            {% for u in usos %}
+            <option value="{{ u.id_uso }}">{{ u.nombre_uso }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>Estado</label>
+        <select name="estado">
+            <option value="Disponible">Disponible</option>
+            <option value="En uso">En uso</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+            <option value="Depreciado">Depreciado</option>
+        </select>
+    </div>
+</div>
+
+<div class="row-2">
+    <div class="campo">
+        <label>Código</label>
+        <input type="text" name="codigo" required>
+    </div>
+
+    <div class="campo">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
+    </div>
+</div>
+
+<div class="row-3">
+    <div class="campo">
+        <label>Marca</label>
+        <input type="text" name="marca">
+    </div>
+
+    <div class="campo">
+        <label>Modelo</label>
+        <input type="text" name="modelo">
+    </div>
+
+    <div class="campo">
+        <label>Serie</label>
+        <input type="text" name="serie">
+    </div>
+</div>
+
+<div class="row-2">
+    <div class="campo">
+        <label>Valor ($)</label>
+        <input type="number" name="valor" step="0.01">
+    </div>
+
+    <div class="campo">
+        <label>Depreciación</label>
+        <input type="text" id="depreciacion" readonly placeholder="Automática">
+    </div>
+</div>
+
+<div class="row-2">
+    <div class="campo">
+        <label>Fecha de ingreso</label>
+        <input type="date" name="fecha_ingreso" required>
+    </div>
+</div>
+
+<div class="campo">
+    <label>Descripción</label>
+    <textarea name="descripcion"></textarea>
+</div>
+
+<div class="botones">
+    <button type="submit">Guardar activo</button>
+    <button type="reset" class="cancelar">Cancelar</button>
+</div>
+
+
+</form>
+
+<style>
+
+.titulo {
+    color: #0056A6;
+    margin-bottom: 20px;
+}
+
+.form-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 750px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #0056A6;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    padding: 9px;
+    border: 2px solid #0056A6;
+    border-radius: 6px;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #F47C20;
+}
+
+textarea {
+    height: 80px;
+}
+
+.botones {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"] {
+    background-color: #F47C20;
+}
+
+button[type="submit"]:hover {
+    background-color: #003f7a;
+}
+
+.cancelar {
+    background-color: #999;
+}
+
+.cancelar:hover {
+    background-color: #666;
+}
+
+</style>
+
+<script>
+function mostrarUbicacion() {
+    let select = document.getElementById("area");
+    let ubicacion = select.options[select.selectedIndex].getAttribute("data-ubicacion");
+    document.getElementById("ubicacion").value = ubicacion || "";
+}
+
+function mostrarDepreciacion() {
+    let select = document.getElementById("tipo");
+    let dep = select.options[select.selectedIndex].getAttribute("data-dep");
+    document.getElementById("depreciacion").value = dep ? dep + "%" : "";
+}
+</script>
+
+{% endblock %}

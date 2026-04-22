@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Inicio 👩‍💻</h1>
+<p>Bienvenida al sistema de inventario</p>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total activos</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Activos</h3>
+        <p>{{ activos }}</p>
+    </div>
+
+    <div class="card">
+        <h3>En mantenimiento</h3>
+        <p>{{ mantenimiento }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Retirados</h3>
+        <p>{{ retirados }}</p>
+    </div>
+
+</div>
+
+<style>
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+.card h3 {
+    margin: 0;
+    color: #0056A6;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+</style>
+
+{% endblock %}

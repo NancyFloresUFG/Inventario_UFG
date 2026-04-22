@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="titulo">Traslado de activos</h2>
+
+<label>Ingrese código del activo</label>
+<input type="text" id="codigo" placeholder="Ej: LAP-001">
+
+<button onclick="buscarActivo()">Buscar</button>
+
+<form method="POST" class="contenedor">
+
+    <input type="hidden" name="codigo" id="codigo_hidden" required>
+
+    <div class="card">
+        <h3>Información del activo</h3>
+
+        <p><b>Código:</b> <span id="info_codigo">-</span></p>
+        <p><b>Nombre:</b> <span id="info_nombre">-</span></p>
+        <p><b>Área:</b> <span id="info_area">-</span></p>
+        <p><b>Responsable:</b> <span id="info_responsable">-</span></p>
+    </div>
+
+    <div class="card">
+        <h3>Actualizar</h3>
+
+        <label>Nueva área</label>
+        <select name="id_area">
+            <option value="">No cambiar</option>
+            {% for a in areas %}
+            <option value="{{ a.id_area }}">{{ a.nombre_area }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Nuevo responsable</label>
+        <select name="id_responsable">
+            <option value="">No cambiar</option>
+            {% for r in responsables %}
+            <option value="{{ r.id_responsable }}">{{ r.nombre }}</option>
+            {% endfor %}
+        </select>
+
+        <div class="botones">
+            <button type="submit" id="btnGuardar" disabled>Guardar cambios</button>
+            <button type="reset" class="cancelar">Cancelar</button>
+        </div>
+    </div>
+
+</form>
+
+<style>
+.titulo { color:#0056A6; margin-bottom:20px; }
+
+input {
+    padding:8px;
+    border:2px solid #0056A6;
+    border-radius:6px;
+}
+
+button {
+    margin-left:10px;
+    padding:8px 15px;
+    background:#F47C20;
+    border:none;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.contenedor {
+    display:flex;
+    gap:20px;
+    margin-top:20px;
+}
+
+.card {
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    flex:1;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.botones {
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+}
+
+.cancelar { background:#999; }
+</style>
+<script>
+function buscarActivo() {
+    let codigo = document.getElementById("codigo").value.trim();
+
+    if (codigo === "") {
+        alert("⚠️ Escribe un código primero");
+        return;
+    }
+
+    fetch(`/buscar_activo?codigo=${codigo}`)
+    .then(res => res.json())
+    .then(data => {
+
+        if (data.error) {
+            alert("❌ Activo no encontrado");
+            return;
+        }
+
+        document.getElementById("codigo_hidden").value = codigo;
+        document.getElementById("info_codigo").innerText = data.codigo;
+        document.getElementById("info_nombre").innerText = data.nombre;
+        document.getElementById("info_area").innerText = data.area;
+        document.getElementById("info_responsable").innerText = data.responsable;
+        document.getElementById("btnGuardar").disabled = false;
+    });
+}
+</script>
+
+{% endblock %}

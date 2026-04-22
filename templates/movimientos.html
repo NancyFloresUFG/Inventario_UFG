@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="titulo">Movimientos de activos</h2>
+
+<form method="POST" class="filtros">
+    <select name="tipo">
+        <option>Todos</option>
+        <option>Entrada</option>
+        <option>Traslado</option>
+        <option>Retiro</option>
+    </select>
+
+    <input type="date" name="fecha">
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<table class="tabla">
+    <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Activo</th>
+        <th>Fecha</th>
+        <th>Detalle</th>
+    </tr>
+
+    {% for m in movimientos %}
+    <tr>
+        <td>{{ m.id_movimiento }}</td>
+
+        <td>
+            {% if m.tipo == 'Entrada' %}
+                <span class="badge entrada">Entrada</span>
+            {% elif m.tipo == 'Traslado' %}
+                <span class="badge traslado">Traslado</span>
+            {% elif m.tipo == 'Retiro' %}
+                <span class="badge retiro">Retiro</span>
+            {% endif %}
+        </td>
+
+        <td>{{ m.activo }}</td>
+        <td>{{ m.fecha }}</td>
+        <td>{{ m.detalle }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<style>
+
+.titulo {
+    color: #0056A6;
+    margin-bottom: 20px;
+}
+
+/* FILTROS */
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filtros select,
+.filtros input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 2px solid #0056A6;
+}
+
+.filtros button {
+    background-color: #F47C20;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* TABLA */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla th {
+    background: #0056A6;
+    color: white;
+    padding: 12px;
+}
+
+.tabla td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla tr:hover {
+    background: #f2f2f2;
+}
+
+/* BADGES */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+}
+
+.entrada {
+    background-color: #28a745;
+}
+
+.traslado {
+    background-color: #ffc107;
+    color: black;
+}
+
+.retiro {
+    background-color: #dc3545;
+}
+
+</style>
+
+{% endblock %}

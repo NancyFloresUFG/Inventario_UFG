@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login UFG</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #00264d, #004080); 
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+    }
+
+    .login-container {
+      background: #ffffff;
+      padding: 45px;
+      border-radius: 18px;
+      box-shadow: 0px 12px 30px rgba(0,0,0,0.35);
+      width: 400px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .login-container img {
+      width: 420px; 
+      display: block;
+      margin: 0 auto 30px auto;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #004080;
+      font-size: 24px;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-container input {
+      width: 100%;
+      max-width: 320px;
+      padding: 14px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: center; 
+    }
+
+    .login-container button {
+      width: 100%;
+      max-width: 320px;
+      padding: 14px;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background: #0066cc;
+      transform: scale(1.03);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    
+    
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo UFG">
+    
+    <h2>Bienvenido</h2>
+
+    <form method="POST">
+      <input type="text" name="usuario" placeholder="Usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="titulo">Editar activo</h2>
+
+<form method="POST" class="form-box">
+
+    <label>Nombre</label>
+    <input type="text" name="nombre" value="{{ activo.nombre }}">
+
+    <label>Descripción</label>
+    <textarea name="descripcion">{{ activo.descripcion }}</textarea>
+
+    <label>Marca</label>
+    <input type="text" name="marca" value="{{ activo.marca }}">
+
+    <label>Modelo</label>
+    <input type="text" name="modelo" value="{{ activo.modelo }}">
+
+    <label>Serie</label>
+    <input type="text" name="serie" value="{{ activo.serie }}">
+
+    <label>Valor</label>
+    <input type="number" name="valor" value="{{ activo.valor }}">
+
+    <label>Estado</label>
+    <select name="estado">
+        <option {% if activo.estado == 'Disponible' %}selected{% endif %}>Disponible</option>
+        <option {% if activo.estado == 'En uso' %}selected{% endif %}>En uso</option>
+        <option {% if activo.estado == 'Mantenimiento' %}selected{% endif %}>Mantenimiento</option>
+        <option {% if activo.estado == 'Depreciado' %}selected{% endif %}>Depreciado</option>
+    </select>
+
+    <label>Área</label>
+    <select name="id_area">
+        {% for a in areas %}
+        <option value="{{ a.id_area }}" {% if a.id_area == activo.id_area %}selected{% endif %}>
+            {{ a.nombre_area }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Responsable</label>
+    <select name="id_responsable">
+        {% for r in responsables %}
+        <option value="{{ r.id_responsable }}" {% if r.id_responsable == activo.id_responsable %}selected{% endif %}>
+            {{ r.nombre }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Tipo</label>
+    <select name="id_tipo">
+        {% for t in tipos %}
+        <option value="{{ t.id_tipo }}" {% if t.id_tipo == activo.id_tipo %}selected{% endif %}>
+            {{ t.nombre_tipo }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Uso</label>
+    <select name="id_uso">
+        {% for u in usos %}
+        <option value="{{ u.id_uso }}" {% if u.id_uso == activo.id_uso %}selected{% endif %}>
+            {{ u.nombre_uso }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+<style>
+.form-box {
+    max-width: 500px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    background: #F47C20;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+}
+</style>
+
+{% endblock %}

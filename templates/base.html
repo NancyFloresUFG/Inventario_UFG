@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Inventario</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #0056A6;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* MENÚ */
+.menu-item {
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item:hover {
+    background-color: #003f7a;
+}
+
+/* LINKS */
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+}
+
+/* SUBMENÚ */
+.submenu {
+    display: none;
+    background-color: #004080;
+}
+
+.submenu a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.submenu a:hover {
+    background-color: #F47C20;
+}
+
+/* CONTENIDO */
+.content {
+    margin-left: 240px;
+    padding: 30px;
+    background: #f2f2f2;
+    min-height: 100vh;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 MENÚ FIJO -->
+<div class="sidebar">
+    <h2>Inventario</h2>
+
+    <!-- INICIO -->
+    <div class="menu-item">
+        <a href="/">Inicio</a>
+    </div>
+
+    <!-- ACTIVO FIJO -->
+    <div class="menu-item" onclick="toggleMenu('activo', this)">
+        Activo fijo <span>▼</span>
+    </div>
+    <div id="activo" class="submenu">
+        <a href="/gestion">Gestión general</a>
+        <a href="/movimientos">Movimientos</a>
+        <a href="/entradas">Entradas</a>
+        <a href="/traslados">Traslados</a>
+        <a href="/retiros">Retiros</a>
+        <a href="/resumenes">Resúmenes</a>
+    </div>
+
+    <!-- INVENTARIO -->
+    <div class="menu-item" onclick="toggleMenu('inventario', this)">
+        Inventario <span>▼</span>
+    </div>
+    <div id="inventario" class="submenu">
+        <a href="/inventario">Ver inventario</a>
+    </div>
+
+    <!-- REPORTES -->
+    <div class="menu-item" onclick="toggleMenu('reportes', this)">
+        Reportes <span>▼</span>
+    </div>
+    <div id="reportes" class="submenu">
+        <a href="/reportes">Generar reportes</a>
+    </div>
+
+    <!-- BÚSQUEDA -->
+    <div class="menu-item" onclick="toggleMenu('busqueda', this)">
+        Búsqueda <span>▼</span>
+    </div>
+    <div id="busqueda" class="submenu">
+        <a href="/busqueda">Buscar activo 🔍</a>
+    </div>
+</div>
+
+<!-- CONTENIDO DINÁMICO -->
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script>
+function toggleMenu(id, element) {
+    let menu = document.getElementById(id);
+    let arrow = element.querySelector("span");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+        arrow.textContent = "▼";
+    } else {
+        menu.style.display = "block";
+        arrow.textContent = "▲";
+    }
+}
+</script>
+
+</body>
+</html>
