@@ -10,7 +10,6 @@ body {
     font-family: Arial;
 }
 
-/* SIDEBAR */
 .sidebar {
     width: 240px;
     height: 100vh;
@@ -20,6 +19,12 @@ body {
     top: 0;
     left: 0;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu {
+    flex: 1;
 }
 
 .sidebar h2 {
@@ -27,7 +32,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* MENÚ */
 .menu-item {
     padding: 12px;
     cursor: pointer;
@@ -40,14 +44,12 @@ body {
     background-color: #003f7a;
 }
 
-/* LINKS */
 .menu-item a {
     color: white;
     text-decoration: none;
     width: 100%;
 }
 
-/* SUBMENÚ */
 .submenu {
     display: none;
     background-color: #004080;
@@ -64,66 +66,73 @@ body {
     background-color: #F47C20;
 }
 
-/* CONTENIDO */
 .content {
     margin-left: 240px;
     padding: 30px;
     background: #f2f2f2;
     min-height: 100vh;
 }
+
+.logout {
+    margin-top: auto;
+    background-color: #003f7a;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 MENÚ FIJO -->
 <div class="sidebar">
+
     <h2>Inventario</h2>
 
-    <!-- INICIO -->
-    <div class="menu-item">
-        <a href="/">Inicio</a>
+    <div class="menu">
+
+        <div class="menu-item">
+            <a href="/">Inicio</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('activo', this)">
+            Activo fijo <span>▼</span>
+        </div>
+        <div id="activo" class="submenu">
+            <a href="/gestion">Gestión general</a>
+            <a href="/movimientos">Movimientos</a>
+            <a href="/entradas">Entradas</a>
+            <a href="/traslados">Traslados</a>
+            <a href="/retiros">Retiros</a>
+            <a href="/resumenes">Resúmenes</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('inventario', this)">
+            Inventario <span>▼</span>
+        </div>
+        <div id="inventario" class="submenu">
+            <a href="/inventario">Ver inventario</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('reportes', this)">
+            Reportes <span>▼</span>
+        </div>
+        <div id="reportes" class="submenu">
+            <a href="/reportes">Generar reportes</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('busqueda', this)">
+            Búsqueda <span>▼</span>
+        </div>
+        <div id="busqueda" class="submenu">
+            <a href="/busqueda">Buscar activo 🔍</a>
+        </div>
+
     </div>
 
-    <!-- ACTIVO FIJO -->
-    <div class="menu-item" onclick="toggleMenu('activo', this)">
-        Activo fijo <span>▼</span>
-    </div>
-    <div id="activo" class="submenu">
-        <a href="/gestion">Gestión general</a>
-        <a href="/movimientos">Movimientos</a>
-        <a href="/entradas">Entradas</a>
-        <a href="/traslados">Traslados</a>
-        <a href="/retiros">Retiros</a>
-        <a href="/resumenes">Resúmenes</a>
+    <div class="menu-item logout" onclick="location.href='/logout'">
+        🚪 Cerrar sesión
     </div>
 
-    <!-- INVENTARIO -->
-    <div class="menu-item" onclick="toggleMenu('inventario', this)">
-        Inventario <span>▼</span>
-    </div>
-    <div id="inventario" class="submenu">
-        <a href="/inventario">Ver inventario</a>
-    </div>
-
-    <!-- REPORTES -->
-    <div class="menu-item" onclick="toggleMenu('reportes', this)">
-        Reportes <span>▼</span>
-    </div>
-    <div id="reportes" class="submenu">
-        <a href="/reportes">Generar reportes</a>
-    </div>
-
-    <!-- BÚSQUEDA -->
-    <div class="menu-item" onclick="toggleMenu('busqueda', this)">
-        Búsqueda <span>▼</span>
-    </div>
-    <div id="busqueda" class="submenu">
-        <a href="/busqueda">Buscar activo 🔍</a>
-    </div>
 </div>
 
-<!-- CONTENIDO DINÁMICO -->
 <div class="content">
     {% block content %}
     {% endblock %}

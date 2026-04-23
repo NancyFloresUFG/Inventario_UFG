@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📄 Generar Reporte</h2>
+
+<form method="POST" class="form-box">
+
+    <label>Seleccionar fecha</label>
+    <input type="date" name="fecha" required>
+
+    <button type="submit">Generar PDF</button>
+
+</form>
+
+<style>
+.form-box {
+    background: linear-gradient(to right, #f7e1d7, #f2c9d0);
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #0056A6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+</style>
+
+{% endblock %}
