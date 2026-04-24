@@ -12,13 +12,25 @@ def dashboard():
     conn = conectar()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT COUNT(*) AS total FROM activos_fijos")
+    cursor.execute("""
+        SELECT COUNT(*) AS total 
+        FROM activos_fijos 
+        WHERE estado != 'Retirado'
+    """)
     total = cursor.fetchone()['total']
 
-    cursor.execute("SELECT COUNT(*) AS activos FROM activos_fijos WHERE estado='Activo'")
+    cursor.execute("""
+        SELECT COUNT(*) AS activos 
+        FROM activos_fijos 
+        WHERE estado != 'Retirado'
+    """)
     activos = cursor.fetchone()['activos']
 
-    cursor.execute("SELECT COUNT(*) AS retirados FROM activos_fijos WHERE estado='Retirado'")
+    cursor.execute("""
+        SELECT COUNT(*) AS retirados 
+        FROM activos_fijos 
+        WHERE estado = 'Retirado'
+    """)
     retirados = cursor.fetchone()['retirados']
 
     cursor.execute("SELECT COUNT(*) AS movimientos FROM movimientos")
@@ -28,16 +40,18 @@ def dashboard():
         SELECT m.tipo, m.fecha, a.nombre AS activo
         FROM movimientos m
         JOIN activos_fijos a ON m.id_activo = a.id_activo
-        ORDER BY m.fecha DESC
+        ORDER BY m.fecha DESC, m.id_movimiento DESC
         LIMIT 5
     """)
     ultimos = cursor.fetchall()
 
     conn.close()
 
-    return render_template("dashboard.html",
-                           total=total,
-                           activos=activos,
-                           retirados=retirados,
-                           movimientos=movimientos,
-                           ultimos=ultimos)
+    return render_template(
+        "dashboard.html",
+        total=total,
+        activos=activos,
+        retirados=retiros if False else retirados,  
+        movimientos=movimientos,
+        ultimos=ultimos
+    )
