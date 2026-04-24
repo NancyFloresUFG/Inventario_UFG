@@ -1,10 +1,26 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>Retiros</h1>
+<h2 style="color:#004080; margin-bottom:20px;">❌ Retiro de activos</h2>
 
-<input placeholder="Código del activo">
-<input placeholder="Motivo">
-<button>Retirar</button>
+<div style="background:white; padding:30px; border-radius:15px; max-width:500px;">
+
+   
+    <form method="POST" style="display:flex; flex-direction:column; gap:15px;">
+
+        <input type="text" name="codigo" placeholder="Código del activo"
+               style="padding:12px; border-radius:10px; border:1px solid #ccc;">
+
+        <input type="text" name="motivo" placeholder="Motivo del retiro"
+               style="padding:12px; border-radius:10px; border:1px solid #ccc;">
+
+        <button style="background:#0056A6; color:white; border:none; padding:12px; border-radius:10px;">
+            Retirar activo
+        </button>
+
+    </form>
+
+</div>
 
 {% endblock %}

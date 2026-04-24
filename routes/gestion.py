@@ -13,18 +13,19 @@ def gestion():
     cursor = conn.cursor(dictionary=True)
 
     cursor.execute("""
-        SELECT 
-            a.*, 
-            ar.nombre_area,
-            r.nombre AS responsable,
-            t.nombre_tipo,
-            u.nombre_uso
-        FROM activos_fijos a
-        LEFT JOIN areas ar ON a.id_area = ar.id_area
-        LEFT JOIN responsables r ON a.id_responsable = r.id_responsable
-        LEFT JOIN tipos_activo t ON a.id_tipo = t.id_tipo
-        LEFT JOIN usos_activo u ON a.id_uso = u.id_uso
-    """)
+    SELECT 
+        a.*, 
+        ar.nombre_area,
+        r.nombre AS responsable,
+        t.nombre_tipo,
+        u.nombre_uso
+    FROM activos_fijos a
+    LEFT JOIN areas ar ON a.id_area = ar.id_area
+    LEFT JOIN responsables r ON a.id_responsable = r.id_responsable
+    LEFT JOIN tipos_activo t ON a.id_tipo = t.id_tipo
+    LEFT JOIN usos_activo u ON a.id_uso = u.id_uso
+    WHERE a.estado != 'Retirado'
+""")
 
     activos = cursor.fetchall()
     conn.close()
