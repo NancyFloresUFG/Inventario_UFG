@@ -23,13 +23,14 @@ body {
     flex-direction: column;
 }
 
-.menu {
-    flex: 1;
-}
-
 .sidebar h2 {
     text-align: center;
     margin-bottom: 20px;
+}
+
+.menu {
+    padding: 0 10px;
+    flex: 1; 
 }
 
 .menu-item {
@@ -38,6 +39,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 8px;
 }
 
 .menu-item:hover {
@@ -53,6 +55,8 @@ body {
 .submenu {
     display: none;
     background-color: #004080;
+    border-radius: 8px;
+    margin: 5px 0;
 }
 
 .submenu a {
@@ -66,6 +70,14 @@ body {
     background-color: #F47C20;
 }
 
+.arrow {
+    transition: transform 0.3s;
+}
+
+.arrow.rotate {
+    transform: rotate(180deg);
+}
+
 .content {
     margin-left: 240px;
     padding: 30px;
@@ -74,8 +86,16 @@ body {
 }
 
 .logout {
-    margin-top: auto;
+    margin: 20px 10px;
+    padding: 12px;
     background-color: #003f7a;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #002f5c;
 }
 </style>
 </head>
@@ -93,7 +113,7 @@ body {
         </div>
 
         <div class="menu-item" onclick="toggleMenu('activo', this)">
-            Activo fijo <span>▼</span>
+            Activo fijo <span class="arrow">▼</span>
         </div>
         <div id="activo" class="submenu">
             <a href="/gestion">Gestión general</a>
@@ -101,18 +121,17 @@ body {
             <a href="/entradas">Entradas</a>
             <a href="/traslados">Traslados</a>
             <a href="/retiros">Retiros</a>
-            
         </div>
 
         <div class="menu-item" onclick="toggleMenu('reportes', this)">
-            Reportes <span>▼</span>
+            Reportes <span class="arrow">▼</span>
         </div>
         <div id="reportes" class="submenu">
             <a href="/reportes">Generar reportes</a>
         </div>
 
         <div class="menu-item" onclick="toggleMenu('busqueda', this)">
-            Búsqueda <span>▼</span>
+            Búsqueda <span class="arrow">▼</span>
         </div>
         <div id="busqueda" class="submenu">
             <a href="/busqueda">Buscar activo</a>
@@ -120,8 +139,8 @@ body {
 
     </div>
 
-    <div class="menu-item logout" onclick="location.href='/logout'">
-        🚪 Cerrar sesión
+    <div class="logout" onclick="location.href='/logout'">
+         Cerrar sesión
     </div>
 
 </div>
@@ -134,14 +153,14 @@ body {
 <script>
 function toggleMenu(id, element) {
     let menu = document.getElementById(id);
-    let arrow = element.querySelector("span");
+    let arrow = element.querySelector(".arrow");
 
     if (menu.style.display === "block") {
         menu.style.display = "none";
-        arrow.textContent = "▼";
+        arrow.classList.remove("rotate");
     } else {
         menu.style.display = "block";
-        arrow.textContent = "▲";
+        arrow.classList.add("rotate");
     }
 }
 </script>
