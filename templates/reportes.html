@@ -4,18 +4,18 @@
 
 <div class="reporte-container">
     <div class="reporte-header">
-        <h2>Panel de Reportes y Auditoría</h2>
+        <h2>Panel de reportes y auditoría</h2>
         <p>Seleccione los filtros deseados para generar el documento oficial.</p>
     </div>
 
     <form method="POST" action="{{ url_for('reportes.reportes') }}" class="reporte-form">
         
         <fieldset class="form-section">
-            <legend>Filtros de Temporalidad</legend>
+            <legend>Filtros de temporalidad</legend>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label>Adquisición Física (Desde - Hasta)</label>
+                    <label>Adquisición física (desde - hasta)</label>
                     <div class="date-group">
                         <input type="date" name="adquisicion_inicio" class="input-control">
                         <span> - </span>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Registro en Sistema (Desde - Hasta)</label>
+                    <label>Registro en sistema (desde - hasta)</label>
                     <div class="date-group">
                         <input type="date" name="registro_inicio" class="input-control">
                         <span> - </span>
@@ -37,25 +37,25 @@
         </fieldset>
 
         <fieldset class="form-section">
-            <legend>Filtros de Clasificación</legend>
+            <legend>Filtros de clasificación</legend>
             
             <div class="form-row">
                 <div class="form-group">
-                    <label>Tipo de Activo</label>
+                    <label>Tipo de activo</label>
                     <select name="id_tipo" class="input-control">
                         <option value="">-- Todos los tipos --</option>
                         {% for tipo in tipos %}
-                        <option value="{{ tipo.id_tipo }}">{{ tipo.nombre }}</option>
+                        <option value="{{ tipo.id_tipo }}">{{ tipo.nombre | capitalize }}</option>
                         {% endfor %}
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Área Asignada</label>
+                    <label>Área asignada</label>
                     <select name="id_area" class="input-control">
                         <option value="">-- Todas las áreas --</option>
                         {% for area in areas %}
-                        <option value="{{ area.id_area }}">{{ area.nombre }}</option>
+                        <option value="{{ area.id_area }}">{{ area.nombre | capitalize }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -63,15 +63,15 @@
         </fieldset>
 
         <div class="form-actions">
-            <button type="reset" class="btn-secondary">Limpiar Filtros</button>
-            <button type="submit" class="btn-primary">Generar PDF Oficial</button>
+            <button type="reset" class="btn-secondary">Limpiar filtros</button>
+            <button type="submit" class="btn-primary">Generar PDF oficial</button>
         </div>
 
     </form>
 </div>
 
 <style>
-    /* Estilos profesionales para el panel de reportes */
+    
     .reporte-container {
         background: #ffffff;
         border-radius: 8px;
@@ -79,19 +79,25 @@
         padding: 30px;
         max-width: 900px;
         margin: 0 auto;
-        border-top: 5px solid #00427A; /* Azul institucional UFG */
+        border-top: 5px solid #00427A; 
     }
 
     .reporte-header h2 {
-        color: #00427A;
+        color: #00427A; 
         margin-bottom: 5px;
+        font-size: 1.5rem;
+        border-bottom: 2px solid #F2A900; 
+        display: inline-block;
+        padding-bottom: 5px;
     }
 
     .reporte-header p {
         color: #6c757d;
+        margin-top: 15px;
         margin-bottom: 25px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #eeeeee;
         padding-bottom: 15px;
+        font-size: 0.95rem;
     }
 
     .form-section {
@@ -102,7 +108,7 @@
 
     .form-section legend {
         font-weight: 600;
-        color: #333;
+        color: #00427A; 
         font-size: 1.1rem;
         margin-bottom: 15px;
         width: 100%;
@@ -129,7 +135,7 @@
     }
 
     .form-group small {
-        color: #888;
+        color: #888888;
         margin-top: 5px;
         font-size: 0.8rem;
     }
@@ -140,12 +146,13 @@
         border-radius: 5px;
         font-family: inherit;
         font-size: 0.95rem;
-        transition: border-color 0.3s;
+        transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .input-control:focus {
         outline: none;
-        border-color: #00427A;
+        border-color: #00427A; 
+        box-shadow: 0 0 5px rgba(242, 169, 0, 0.3); 
     }
 
     .date-group {
@@ -157,6 +164,11 @@
     .date-group .input-control {
         flex: 1;
     }
+    
+    .date-group span {
+        color: #6c757d;
+        font-weight: bold;
+    }
 
     .form-actions {
         display: flex;
@@ -164,22 +176,23 @@
         gap: 15px;
         margin-top: 30px;
         padding-top: 20px;
-        border-top: 1px solid #eee;
+        border-top: 1px solid #eeeeee;
     }
 
     .btn-primary {
-        background-color: #00427A;
+        background-color: #00427A; 
         color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
         font-weight: 600;
+        font-size: 0.95rem;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s ease;
     }
 
     .btn-primary:hover {
-        background-color: #002d54;
+        background-color: #002d54; 
     }
 
     .btn-secondary {
@@ -189,8 +202,9 @@
         padding: 10px 20px;
         border-radius: 5px;
         font-weight: 500;
+        font-size: 0.95rem;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
     }
 
     .btn-secondary:hover {
