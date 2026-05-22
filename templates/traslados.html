@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2 class="titulo">Traslado / Actualización de activos</h2>
+<h2 class="titulo">TRASLADO / ACTUALIZACIÓN DE ACTIVOS</h2>
 
 <div class="busqueda-container">
     <label for="codigo">Ingrese código del activo</label>
@@ -15,7 +15,7 @@
     <input type="hidden" name="codigo" id="codigo_hidden" required>
 
     <div class="card info-card">
-        <h3>Información del activo</h3>
+        <h3>INFORMACIÓN DEL ACTIVO</h3>
         <p><b>Código:</b> <span id="info_codigo">-</span></p>
         <p><b>Serie:</b> <span id="info_serie">-</span></p>
         <p><b>Nombre:</b> <span id="info_nombre">-</span></p>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="card grid-card">
-        <h3>Actualizar Datos</h3>
+        <h3>ACTUALIZAR DATOS</h3>
 
         <div class="grid-form">
             <div class="form-group">
@@ -90,7 +90,7 @@
                 <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
             </svg>
         </div>
-        <h2 class="modal-titulo">¡Movimiento Registrado!</h2>
+        <h2 class="modal-titulo">¡MOVIMIENTO REGISTRADO!</h2>
         <p class="modal-texto">Los cambios y la justificación han sido guardados correctamente en el historial de auditoría.</p>
         <div class="modal-acciones">
             <button type="button" onclick="window.location.reload();" class="btn-modal-secundario">Realizar otro movimiento</button>
@@ -100,7 +100,7 @@
 </div>
 
 <style>
-/* Estilos Generales y Formulario */
+
 .titulo { 
     color: #004683; 
     margin-bottom: 20px; 
@@ -155,7 +155,6 @@
 
 .mt-3 { margin-top: 20px; }
 
-/* Botones de Acción */
 button {
     font-family: 'Segoe UI', sans-serif;
 }
@@ -213,7 +212,6 @@ button {
 
 .btn-cancelar:hover { background-color: #e2e8f0; }
 
-/* Contenedores y Cards */
 .contenedor {
     display: flex;
     flex-wrap: wrap;
@@ -265,7 +263,6 @@ button {
     .grid-form { grid-template-columns: 1fr; }
 }
 
-/* --- ESTILOS DEL MODAL --- */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0;

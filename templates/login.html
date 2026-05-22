@@ -24,7 +24,7 @@
       animation: fadeIn 1s ease-in-out;
       display: flex;
       flex-direction: column;
-      align-items: center; /* Centra todo dentro de la tarjeta blanca */
+      align-items: center; 
     }
 
     .login-container img {
@@ -43,16 +43,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%; /* Asegura que el formulario ocupe el espacio para centrar a sus hijos */
+      width: 100%; 
     }
 
-    /* Regla unificada para inputs, botón y alertas para que midan exactamente lo mismo */
     .login-container input,
     .login-container button,
     .alert {
       width: 100%;
-      max-width: 320px; /* Este es el ancho maestro */
-      box-sizing: border-box; /* Esto evita que el padding rompa el ancho total */
+      max-width: 320px; 
+      box-sizing: border-box; 
     }
 
     .login-container input {
@@ -81,7 +80,6 @@
       transform: scale(1.03);
     }
 
-    /* Estilos corregidos de la alerta */
     .alert {
       background: #ffe6e6;
       color: #a00;
@@ -89,11 +87,11 @@
       border-radius: 10px;
       margin-bottom: 15px;
       font-size: 14px;
-      /* Se eliminó el padding extra que la hacía más grande */
+      
     }
     
     .alert p {
-        margin: 5px 0; /* Limpia los márgenes por defecto de la etiqueta P */
+        margin: 5px 0; 
     }
 
     @keyframes fadeIn {
@@ -101,7 +99,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Contenedor relativo solo para el input de la contraseña */
     .password-wrapper {
         position: relative; 
         width: 100%; 
@@ -109,10 +106,9 @@
         margin: 12px 0;
     }
 
-    /* Sobrescribe el margen del input de password para que no se sume al del wrapper */
     .password-wrapper input {
         margin: 0;
-        padding-right: 40px; /* Espacio para el ojito */
+        padding-right: 40px; 
     }
 
     .password-toggle {
@@ -160,7 +156,7 @@
     
     <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo UFG">
     
-    <h2>Bienvenido</h2>
+    <h2>BIENVENIDO</h2>
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}

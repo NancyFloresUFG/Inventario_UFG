@@ -5,11 +5,11 @@
     
     <div class="header-expediente">
         <div>
-            <h2 class="titulo"></span> Expediente histórico del activo</h2>
+            <h2 class="titulo"></SPAN> EXPEDIENTE HISTÓRICO DEL ACTIVO</h2>
             <p class="subtitulo">Detalles técnicos y trazabilidad de vida del equipo</p>
         </div>
         <a href="{{ url_for('gestion_bp.gestion' if 'gestion_bp' in request.endpoint else 'gestion.gestion') }}" class="btn-volver">
-            ⬅ Volver a Gestión
+            ⬅ Volver a gestión
         </a>
     </div>
 
@@ -67,23 +67,23 @@
         </div>
 
         <div class="descripcion-box">
-            <h4>Descripción técnica</h4>
+            <h4>DESCRIPCIÓN TÉCNICA</h4>
             <p>{{ activo.descripcion or 'No se agregó descripción adicional al momento del registro.' }}</p>
         </div>
     </div>
 
     <div class="historial-seccion">
-        <h3 class="titulo-seccion"><span></span> Historial de movimientos</h3>
+        <h3 class="titulo-seccion"><span></span> HISTORIAL DE MOVIMIENTOS</h3>
         
         {% if historial %}
         <div class="tabla-container">
             <table class="tabla-historial">
                 <thead>
                     <tr>
-                        <th class="col-fecha">Fecha y Hora</th>
-                        <th class="col-tipo">Tipo de Evento</th>
+                        <th class="col-fecha">Fecha y hora</th>
+                        <th class="col-tipo">Tipo de evento</th>
                         <th class="col-responsable">Responsable</th>
-                        <th class="col-detalle">Detalle de la Operación</th>
+                        <th class="col-detalle">Detalle de la operación</th>
                         <th class="col-motivo">Motivo</th>
                     </tr>
                 </thead>
@@ -104,7 +104,7 @@
         </div>
         {% else %}
         <div class="sin-registros">
-            <span>⚠️</span> Este activo no tiene movimientos registrados posteriores a su ingreso.
+            </span> Este activo no tiene movimientos registrados posteriores a su ingreso.
         </div>
         {% endif %}
     </div>
@@ -120,7 +120,6 @@
     color: #333;
     padding-bottom: 50px;
 }
-
 
 .header-expediente {
     display: flex;
@@ -144,7 +143,6 @@
     font-size: 14px;
 }
 
-/* Botón Volver */
 .btn-volver {
     background-color: white;
     color: #004683;
@@ -159,7 +157,6 @@
     background-color: #004683;
     color: white;
 }
-
 
 .tarjeta-principal {
     background: white;
@@ -222,7 +219,6 @@
     font-weight: 700;
 }
 
-
 .descripcion-box {
     background-color: #f8faff;
     border-left: 4px solid #F29100; 
@@ -240,7 +236,6 @@
     font-size: 14px;
     line-height: 1.6;
 }
-
 
 .titulo-seccion {
     color: #004683;
@@ -313,7 +308,6 @@
     color: #555;
     font-size: 13px;
 }
-
 
 .sin-registros {
     background-color: #fff8e6;
