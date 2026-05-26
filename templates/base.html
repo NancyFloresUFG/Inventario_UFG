@@ -140,7 +140,7 @@ body {
 
     </div>
 
-    <div class="logout" onclick="location.href='/logout'" title="Cerrar sesión">
+    <div class="logout" onclick="sessionStorage.removeItem('borrador_activo'); location.href='/logout'" title="Cerrar sesión">
          <i class="fa-solid fa-right-from-bracket fa-lg"></i>
     </div>
 
