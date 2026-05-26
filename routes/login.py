@@ -23,8 +23,10 @@ def login():
         conn.close()
 
         if usuario_db and usuario_db['password'] == password:
-            session['usuario'] = usuario_db['usuario']
-            session['rol'] = usuario_db['rol']
+            session.clear()
+            session['id_usuario'] = usuario_db['id_usuario']
+            session['usuario']    = usuario_db['usuario']
+            session['rol']        = usuario_db['rol']
             return redirect(url_for('dashboard.dashboard'))
 
         flash("Usuario o contraseña incorrectos")

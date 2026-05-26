@@ -101,7 +101,7 @@ def editar_activo(id):
             conn.close()
             flash("Acceso denegado: Solo administradores pueden cambiar el estado a Retirado.", "error")
             return redirect(url_for('gestion.gestion'))
-                                                             
+
         cursor.execute(
             "SELECT depreciacion FROM tipos_activo WHERE id_tipo = %s",
             (request.form['id_tipo'],)
@@ -109,7 +109,6 @@ def editar_activo(id):
         dep_row = cursor.fetchone()
         depreciacion = dep_row['depreciacion'] if dep_row else 0
 
-                              
         cursor.execute("""
             UPDATE activos_fijos 
             SET codigo=%s, nombre=%s, descripcion=%s, marca=%s, modelo=%s, 
@@ -133,12 +132,19 @@ def editar_activo(id):
             request.form['id_uso'],
             id
         ))
-                       
+
+        usuario_sesion = session.get('usuario')
+        print(f"DEBUG gestion.py - Usuario en sesión al editar activo id={id}: '{usuario_sesion}' | rol: {session.get('rol')}")
+        cursor.execute("""
+            INSERT INTO movimientos (tipo, id_activo, detalle, motivo, usuario)
+            VALUES (%s, %s, %s, %s, %s)
+        """, ('Edición', id, 'Edición directa de datos del activo fijo.', None, usuario_sesion))
+
         conn.commit()
         conn.close()
-                                                                          
+
         return redirect(url_for('gestion.gestion'))
-                                                     
+
     cursor.execute("SELECT * FROM areas WHERE estado=1")
     areas = cursor.fetchall()
 
@@ -150,7 +156,7 @@ def editar_activo(id):
 
     cursor.execute("SELECT * FROM usos_activo")
     usos = cursor.fetchall()
-                                                                                
+
     cursor.execute("""
         SELECT a.*, ar.ubicacion AS nombre_area_ubicacion 
         FROM activos_fijos a 
