@@ -98,6 +98,11 @@ def entradas():
 
 
     if request.method == 'POST':
+        estado_req = request.form.get('estado')
+        if estado_req == 'Retirado' and session.get('rol') != 'admin':
+            conn.close()
+            flash("Acceso denegado: Solo administradores pueden registrar activos como Retirados.", "error")
+            return redirect(url_for('entradas.entradas'))
 
         valor, error_valor = validar_valor_activo(request.form.get('valor'))
 
