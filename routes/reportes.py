@@ -132,7 +132,7 @@ def reportes():
         elementos.append(Paragraph("DEPARTAMENTO DE CONTABILIDAD Y ACTIVOS FIJOS", estilo_titulo))
         
         texto_filtros = " | ".join(filtros_texto) if filtros_texto else "Todos los registros históricos"
-        usuario_actual = session.get('usuario', 'Administrador')
+        usuario_actual = session.get('usuario') or 'Usuario desconocido'
         
         subtitulo_html = f"Reporte Oficial de Auditoría SGA<br/><b>Filtros aplicados:</b> {texto_filtros}<br/>Emitido por: <b>{usuario_actual}</b>"
         elementos.append(Paragraph(subtitulo_html, estilo_subtitulo))

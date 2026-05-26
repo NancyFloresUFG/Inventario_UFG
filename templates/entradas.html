@@ -339,12 +339,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!form) return;
 
     const STORAGE_KEY = 'borrador_activo';
+    let isSuccessAlert = false;
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, msg in messages %}
                 {% if category == 'success' %}
-                    sessionStorage.removeItem(STORAGE_KEY);
+                    isSuccessAlert = true;
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -370,7 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    cargarBorrador();
+    if (isSuccessAlert) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        form.reset();
+    } else {
+        cargarBorrador();
+    }
 
     const guardarBorrador = () => {
         const data = {};
@@ -393,4 +399,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-{% endblock %} %}ck %}
+{% if exito %}
+{% set modal_titulo = "Registro Exitoso" %}
+{% set modal_mensaje = "El activo ha sido registrado correctamente en el sistema." %}
+{% set url_accion_1 = "/gestion" %}
+{% set texto_accion_1 = "Ver Inventario" %}
+{% set url_accion_2 = "/entradas" %}
+{% set texto_accion_2 = "Registrar otro" %}
+{% include 'components/modal_exito.html' %}
+{% endif %}
+
+{% endblock %}

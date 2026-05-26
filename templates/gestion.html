@@ -11,7 +11,7 @@
             <th>Código</th>
             <th>Nombre</th>
             <th>Área</th>
-            <th>Responsable de gestión</th>
+            <th>Responsable actual</th>
             <th>Estado</th>
             <th>Detalle</th>
         </tr>
@@ -23,7 +23,7 @@
             <td>{{ a.codigo }}</td>
             <td>{{ a.nombre }}</td>
             <td>{{ a.nombre_area }}</td>
-            <td>{{ session.usuario }}</td>
+            <td>{{ a.responsable }}</td>
             <td>
                 <span class="estado {{ a.estado|lower|replace(' ', '-') }}">
                     {{ a.estado }}

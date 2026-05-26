@@ -38,11 +38,13 @@ def retiros():
 
         motivo = motivo.strip()
         detalle = f'Activo retirado del inventario. Responsable al retiro: {responsable_nombre}'
+        usuario_sesion = session.get('usuario')
+        print(f"DEBUG retiros.py - Usuario en sesión al guardar retiro: '{usuario_sesion}' | id_usuario: {session.get('id_usuario')} | rol: {session.get('rol')}")
 
         cursor.execute("""
             INSERT INTO movimientos (tipo, id_activo, detalle, motivo, usuario)
             VALUES (%s, %s, %s, %s, %s)
-        """, ('Retiro', id_activo, detalle, motivo, session.get('usuario')))
+        """, ('Retiro', id_activo, detalle, motivo, usuario_sesion))
 
         conn.commit()
         conn.close()
