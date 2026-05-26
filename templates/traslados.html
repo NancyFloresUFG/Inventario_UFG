@@ -365,8 +365,7 @@ function buscarActivo() {
         document.getElementById("info_responsable").innerText = data.responsable || '-';
         document.getElementById("info_uso").innerText = data.uso || '-';
         document.getElementById("info_estado").innerText = data.estado || '-';
-        
-        // Habilitamos el botón de guardar
+
         document.getElementById("btnGuardar").disabled = false;
     })
     .catch(err => {

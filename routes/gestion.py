@@ -133,18 +133,11 @@ def editar_activo(id):
             request.form['id_uso'],
             id
         ))
-
-                                            
-                            
-                                                                
-                                         
-                                          
-
+                       
         conn.commit()
         conn.close()
                                                                           
         return redirect(url_for('gestion.gestion'))
-
                                                      
     cursor.execute("SELECT * FROM areas WHERE estado=1")
     areas = cursor.fetchall()
@@ -157,7 +150,6 @@ def editar_activo(id):
 
     cursor.execute("SELECT * FROM usos_activo")
     usos = cursor.fetchall()
-
                                                                                 
     cursor.execute("""
         SELECT a.*, ar.ubicacion AS nombre_area_ubicacion 

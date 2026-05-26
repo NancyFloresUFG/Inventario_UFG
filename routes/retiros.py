@@ -23,7 +23,7 @@ def retiros():
 
         if not activo:
             conn.close()
-            return "❌ Activo no encontrado"
+            return "Activo no encontrado"
 
         id_activo = activo['id_activo']
 
