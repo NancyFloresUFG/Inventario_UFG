@@ -26,12 +26,24 @@ def gestion():
     LEFT JOIN tipos_activo t ON a.id_tipo = t.id_tipo
     LEFT JOIN usos_activo u ON a.id_uso = u.id_uso
     WHERE a.estado != 'Retirado'
-""")
+    ORDER BY ar.nombre_area, a.codigo
+    """)
 
     activos = cursor.fetchall()
     conn.close()
 
-    return render_template("gestion.html", activos=activos)
+    # Group activos by area
+    activos_por_area = {}
+    for a in activos:
+        area_nombre = a['nombre_area'] if a['nombre_area'] else 'Sin Área'
+        if area_nombre not in activos_por_area:
+            activos_por_area[area_nombre] = []
+        activos_por_area[area_nombre].append(a)
+
+    # Sort areas alphabetically
+    activos_por_area = dict(sorted(activos_por_area.items()))
+
+    return render_template("gestion.html", activos_por_area=activos_por_area)
 
 @gestion_bp.route('/detalle/<codigo>')
 def detalle_activo(codigo):
