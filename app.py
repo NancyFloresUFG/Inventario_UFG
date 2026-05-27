@@ -22,7 +22,6 @@ from routes.retiros import retiros_bp
 from routes.resumenes import resumenes_bp
 from routes.reportes import reportes_bp
 from routes.login import login_bp
-import routes.api
 
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(gestion_bp)

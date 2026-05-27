@@ -5,398 +5,410 @@
 
 <form method="POST" class="form-box">
 
-<div class="row-2">
-    <div class="campo">
-        <label>Área</label>
-        <select name="id_area" id="area" onchange="mostrarUbicacion(); this.setCustomValidity('')" oninvalid="this.setCustomValidity('Debe seleccionar un área de la lista')" required>
-            <option value="">Seleccione</option>
-            {% for a in areas %}
-            <option value="{{ a.id_area }}" data-ubicacion="{{ a.ubicacion }}">
-                {{ a.nombre_area }}
-            </option>
-            {% endfor %}
-        </select>
+    <div class="row-2">
+        <div class="campo">
+            <label>Área</label>
+            <select name="id_area" id="area" onchange="mostrarUbicacion(); this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Debe seleccionar un área de la lista')" required>
+                <option value="">Seleccione</option>
+                {% for a in areas %}
+                <option value="{{ a.id_area }}" data-ubicacion="{{ a.ubicacion }}">
+                    {{ a.nombre_area }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Ubicación</label>
+            <input type="text" id="ubicacion" readonly placeholder="Automático">
+        </div>
+    </div>
+
+    <div class="row-2">
+        <div class="campo">
+            <label>Responsable</label>
+            <select name="id_responsable" onchange="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Debe seleccionar un responsable de la lista')" required>
+                <option value="">Seleccione</option>
+                {% for r in responsables %}
+                <option value="{{ r.id_responsable }}">{{ r.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Tipo</label>
+            <select name="id_tipo" id="tipo" onchange="mostrarDepreciacion(); this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Debe seleccionar un tipo de la lista')" required>
+                <option value="">Seleccione</option>
+                {% for t in tipos %}
+                <option value="{{ t.id_tipo }}" data-dep="{{ t.depreciacion }}">
+                    {{ t.nombre_tipo }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row-2">
+        <div class="campo">
+            <label>Uso</label>
+            <select name="id_uso" onchange="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Debe seleccionar un uso de la lista')" required>
+                <option value="">Seleccione</option>
+                {% for u in usos %}
+                <option value="{{ u.id_uso }}">{{ u.nombre_uso }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Estado</label>
+            <select name="estado" onchange="this.setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Debe seleccionar un estado de la lista')" required>
+                <option value="Disponible">Disponible</option>
+                <option value="En uso">En uso</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+                <option value="Depreciado">Depreciado</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row-2">
+        <div class="campo">
+            <label>Código</label>
+            <input type="text" id="codigo_activo" name="codigo" class="input-maxlength" required maxlength="20"
+                pattern="^[a-zA-Z0-9\-]+$" title="Solo letras, números y guiones"
+                oninvalid="this.setCustomValidity('Por favor, ingrese el código del activo.')"
+                oninput="this.setCustomValidity('')">
+            <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        </div>
+
+        <div class="campo">
+            <label>Nombre</label>
+            <input type="text" name="nombre" class="input-maxlength" required maxlength="70"
+                oninvalid="this.setCustomValidity('Por favor, ingrese el nombre.')"
+                oninput="this.setCustomValidity('')">
+            <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        </div>
+    </div>
+
+    <div class="row-3">
+        <div class="campo">
+            <label>Marca</label>
+            <input type="text" name="marca" class="input-maxlength" required maxlength="50"
+                oninvalid="this.setCustomValidity('Por favor, ingrese la marca.')" oninput="this.setCustomValidity('')">
+            <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        </div>
+
+        <div class="campo">
+            <label>Modelo</label>
+            <input type="text" name="modelo" class="input-maxlength" required maxlength="50"
+                oninvalid="this.setCustomValidity('Por favor, ingrese el modelo.')"
+                oninput="this.setCustomValidity('')">
+            <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        </div>
+
+        <div class="campo">
+            <label>Serie</label>
+            <input type="text" name="serie" class="input-maxlength" required maxlength="50"
+                oninvalid="this.setCustomValidity('Por favor, ingrese la serie.')" oninput="this.setCustomValidity('')">
+            <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        </div>
+    </div>
+
+    <div class="row-2">
+        <div class="campo">
+            <label>Valor ($)</label>
+            <input type="number" name="valor" id="valor" required min="0.01" max="500000" step="0.01"
+                title="Ingrese un valor entre $0.01 y $500,000.00"
+                oninvalid="this.setCustomValidity('Ingrese un monto válido para el valor')"
+                oninput="validarValorInput(this); this.setCustomValidity('')">
+            {% if error_valor %}
+            <small class="error-campo">{{ error_valor }}</small>
+            {% endif %}
+        </div>
+
+        <div class="campo">
+            <label>Depreciación</label>
+            <input type="text" id="depreciacion" readonly placeholder="Automática">
+        </div>
+    </div>
+
+    <div class="row-2">
+        <div class="campo">
+            <label>Fecha de ingreso</label>
+            <input type="date" name="fecha_ingreso" required
+                oninvalid="this.setCustomValidity('Seleccione la fecha de ingreso')"
+                oninput="this.setCustomValidity('')">
+        </div>
     </div>
 
     <div class="campo">
-        <label>Ubicación</label>
-        <input type="text" id="ubicacion" readonly placeholder="Automático">
-    </div>
-</div>
-
-<div class="row-2">
-    <div class="campo">
-        <label>Responsable</label>
-        <select name="id_responsable" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Debe seleccionar un responsable de la lista')" required>
-            <option value="">Seleccione</option>
-            {% for r in responsables %}
-            <option value="{{ r.id_responsable }}">{{ r.nombre }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div class="campo">
-        <label>Tipo</label>
-        <select name="id_tipo" id="tipo" onchange="mostrarDepreciacion(); this.setCustomValidity('')" oninvalid="this.setCustomValidity('Debe seleccionar un tipo de la lista')" required>
-            <option value="">Seleccione</option>
-            {% for t in tipos %}
-            <option value="{{ t.id_tipo }}" data-dep="{{ t.depreciacion }}">
-                {{ t.nombre_tipo }}
-            </option>
-            {% endfor %}
-        </select>
-    </div>
-</div>
-
-<div class="row-2">
-    <div class="campo">
-        <label>Uso</label>
-        <select name="id_uso" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Debe seleccionar un uso de la lista')" required>
-            <option value="">Seleccione</option>
-            {% for u in usos %}
-            <option value="{{ u.id_uso }}">{{ u.nombre_uso }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div class="campo">
-        <label>Estado</label>
-        <select name="estado" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Debe seleccionar un estado de la lista')" required>
-            <option value="Disponible">Disponible</option>
-            <option value="En uso">En uso</option>
-            <option value="Mantenimiento">Mantenimiento</option>
-            <option value="Depreciado">Depreciado</option>
-        </select>
-    </div>
-</div>
-
-<div class="row-2">
-    <div class="campo">
-        <label>Código</label>
-        <input type="text" id="codigo_activo" name="codigo" class="input-maxlength" required maxlength="20" pattern="^[a-zA-Z0-9\-]+$" title="Solo letras, números y guiones" oninvalid="this.setCustomValidity('Por favor, ingrese el código del activo.')" oninput="this.setCustomValidity('')">
+        <label>Descripción</label>
+        <textarea name="descripcion" class="input-maxlength" maxlength="250"></textarea>
         <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
     </div>
 
     <div class="campo">
-        <label>Nombre</label>
-        <input type="text" name="nombre" class="input-maxlength" required maxlength="70" oninvalid="this.setCustomValidity('Por favor, ingrese el nombre.')" oninput="this.setCustomValidity('')">
-        <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
-    </div>
-</div>
-
-<div class="row-3">
-    <div class="campo">
-        <label>Marca</label>
-        <input type="text" name="marca" class="input-maxlength" required maxlength="50" oninvalid="this.setCustomValidity('Por favor, ingrese la marca.')" oninput="this.setCustomValidity('')">
-        <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+        <label>Motivo del ingreso</label>
+        <textarea name="motivo" rows="2" placeholder="Justificación u observaciones del ingreso (opcional)"></textarea>
     </div>
 
-    <div class="campo">
-        <label>Modelo</label>
-        <input type="text" name="modelo" class="input-maxlength" required maxlength="50" oninvalid="this.setCustomValidity('Por favor, ingrese el modelo.')" oninput="this.setCustomValidity('')">
-        <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
+    <div class="botones">
+        <button type="submit" id="btn_submit">Guardar activo</button>
+        <button type="reset" class="cancelar">Cancelar</button>
     </div>
-
-    <div class="campo">
-        <label>Serie</label>
-        <input type="text" name="serie" class="input-maxlength" required maxlength="50" oninvalid="this.setCustomValidity('Por favor, ingrese la serie.')" oninput="this.setCustomValidity('')">
-        <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
-    </div>
-</div>
-
-<div class="row-2">
-    <div class="campo">
-        <label>Valor ($)</label>
-        <input type="number" name="valor" id="valor" required min="0.01" max="500000" step="0.01"
-               title="Ingrese un valor entre $0.01 y $500,000.00"
-               oninvalid="this.setCustomValidity('Ingrese un monto válido para el valor')"
-               oninput="validarValorInput(this); this.setCustomValidity('')">
-        {% if error_valor %}
-        <small class="error-campo">{{ error_valor }}</small>
-        {% endif %}
-    </div>
-
-    <div class="campo">
-        <label>Depreciación</label>
-        <input type="text" id="depreciacion" readonly placeholder="Automática">
-    </div>
-</div>
-
-<div class="row-2">
-    <div class="campo">
-        <label>Fecha de ingreso</label>
-        <input type="date" name="fecha_ingreso" required oninvalid="this.setCustomValidity('Seleccione la fecha de ingreso')" oninput="this.setCustomValidity('')">
-    </div>
-</div>
-
-<div class="campo">
-    <label>Descripción</label>
-    <textarea name="descripcion" class="input-maxlength" maxlength="250"></textarea>
-    <small class="aviso-limite text-danger d-none">Límite de caracteres alcanzado</small>
-</div>
-
-<div class="campo">
-    <label>Motivo del ingreso</label>
-    <textarea name="motivo" rows="2" placeholder="Justificación u observaciones del ingreso (opcional)"></textarea>
-</div>
-
-<div class="botones">
-    <button type="submit" id="btn_submit">Guardar activo</button>
-    <button type="reset" class="cancelar">Cancelar</button>
-</div>
 
 </form>
 
 <style>
+    .titulo {
+        color: #0056A6;
+        margin-bottom: 20px;
+    }
 
-.titulo {
-    color: #0056A6;
-    margin-bottom: 20px;
-}
+    .form-box {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 750px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    }
 
-.form-box {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 750px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-}
+    .campo {
+        display: flex;
+        flex-direction: column;
+    }
 
-.campo {
-    display: flex;
-    flex-direction: column;
-}
+    .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
 
-.row-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
+    .row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+    }
 
-.row-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-}
+    label {
+        font-weight: bold;
+        color: #0056A6;
+        margin-bottom: 5px;
+    }
 
-label {
-    font-weight: bold;
-    color: #0056A6;
-    margin-bottom: 5px;
-}
+    input,
+    select,
+    textarea {
+        padding: 9px;
+        border: 2px solid #0056A6;
+        border-radius: 6px;
+        outline: none;
+    }
 
-input, select, textarea {
-    padding: 9px;
-    border: 2px solid #0056A6;
-    border-radius: 6px;
-    outline: none;
-}
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #F47C20;
+    }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #F47C20;
-}
+    textarea {
+        height: 80px;
+    }
 
-textarea {
-    height: 80px;
-}
+    .botones {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
 
-.botones {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-}
+    button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
 
-button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+    button[type="submit"] {
+        background-color: #F47C20;
+    }
 
-button[type="submit"] {
-    background-color: #F47C20;
-}
+    button[type="submit"]:hover {
+        background-color: #003f7a;
+    }
 
-button[type="submit"]:hover {
-    background-color: #003f7a;
-}
+    .cancelar {
+        background-color: #999;
+    }
 
-.cancelar {
-    background-color: #999;
-}
+    .cancelar:hover {
+        background-color: #666;
+    }
 
-.cancelar:hover {
-    background-color: #666;
-}
+    .error-campo {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 4px;
+        font-weight: 600;
+    }
 
-.error-campo {
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 4px;
-    font-weight: 600;
-}
+    .d-none {
+        display: none !important;
+    }
 
-.d-none {
-    display: none !important;
-}
+    .text-danger {
+        color: #dc3545;
+    }
 
-.text-danger {
-    color: #dc3545;
-}
+    .aviso-limite {
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        margin-top: 4px;
+        font-weight: 600;
+    }
 
-.aviso-limite {
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-    margin-top: 4px;
-    font-weight: 600;
-}
+    .aviso-limite::before {
+        content: '';
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        flex-shrink: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23dc3545' d='M10 2 19 18H1 10 2z'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' d='M10 7v5M10 14h.01'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 
-.aviso-limite::before {
-    content: '';
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-right: 6px;
-    flex-shrink: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23dc3545' d='M10 2 19 18H1 10 2z'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' d='M10 7v5M10 14h.01'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.input-maxlength.limite-alcanzado,
-.input-maxlength.limite-alcanzado:focus {
-    border-color: #dc3545 !important;
-    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
-}
-
+    .input-maxlength.limite-alcanzado,
+    .input-maxlength.limite-alcanzado:focus {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
+    }
 </style>
 
 <script>
-const VALOR_MIN = 0.01;
-const VALOR_MAX = 500000;
+    const VALOR_MIN = 0.01;
+    const VALOR_MAX = 500000;
 
-function validarValorInput(el) {
-    let raw = String(el.value);
-    if (raw.length > 12) {
-        el.value = raw.slice(0, 12);
-        raw = el.value;
-    }
-    const n = parseFloat(raw);
-    if (raw !== '' && !isNaN(n)) {
-        if (n > VALOR_MAX) el.value = String(VALOR_MAX);
-        if (n < VALOR_MIN && raw.length > 3) el.setCustomValidity('El valor mínimo es $0.01');
-        else el.setCustomValidity('');
-    }
-}
-
-function mostrarUbicacion() {
-    let select = document.getElementById("area");
-    let ubicacion = select.options[select.selectedIndex].getAttribute("data-ubicacion");
-    document.getElementById("ubicacion").value = ubicacion || "";
-}
-
-function mostrarDepreciacion() {
-    let select = document.getElementById("tipo");
-    let dep = select.options[select.selectedIndex].getAttribute("data-dep");
-    document.getElementById("depreciacion").value = dep ? dep + "%" : "";
-}
-
-function actualizarAvisoMaxlength(campo) {
-    const max = parseInt(campo.getAttribute('maxlength'), 10);
-    const aviso = campo.nextElementSibling;
-    if (!max || !aviso || !aviso.classList.contains('aviso-limite')) return;
-
-    const alLimite = campo.value.length >= max;
-    campo.classList.toggle('limite-alcanzado', alLimite);
-    aviso.classList.toggle('d-none', !alLimite);
-}
-
-function inicializarAvisosMaxlength() {
-    document.querySelectorAll('.input-maxlength').forEach((campo) => {
-        campo.addEventListener('input', () => actualizarAvisoMaxlength(campo));
-        actualizarAvisoMaxlength(campo);
-    });
-
-    const form = document.querySelector('.form-box');
-    if (form) {
-        form.addEventListener('reset', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.input-maxlength').forEach(actualizarAvisoMaxlength);
-            }, 0);
-        });
-    }
-}
-
-document.addEventListener('DOMContentLoaded', inicializarAvisosMaxlength);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form'); 
-    if (!form) return;
-
-    const STORAGE_KEY = 'borrador_activo';
-    let isSuccessAlert = false;
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, msg in messages %}
-                {% if category == 'success' %}
-                    isSuccessAlert = true;
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    const formElements = form.querySelectorAll('input, select, textarea');
-
-    const cargarBorrador = () => {
-        const guardado = sessionStorage.getItem(STORAGE_KEY);
-        if (guardado) {
-            try {
-                const data = JSON.parse(guardado);
-                formElements.forEach(el => {
-                    if (el.name && data[el.name] !== undefined) {
-                        el.value = data[el.name];
-                        el.dispatchEvent(new Event('change', { bubbles: true }));
-                        el.dispatchEvent(new Event('input', { bubbles: true }));
-                    }
-                });
-            } catch (error) {
-                console.error("Error al leer el borrador:", error);
-            }
+    function validarValorInput(el) {
+        let raw = String(el.value);
+        if (raw.length > 12) {
+            el.value = raw.slice(0, 12);
+            raw = el.value;
         }
-    };
-
-    if (isSuccessAlert) {
-        sessionStorage.removeItem(STORAGE_KEY);
-        form.reset();
-    } else {
-        cargarBorrador();
+        const n = parseFloat(raw);
+        if (raw !== '' && !isNaN(n)) {
+            if (n > VALOR_MAX) el.value = String(VALOR_MAX);
+            if (n < VALOR_MIN && raw.length > 3) el.setCustomValidity('El valor mínimo es $0.01');
+            else el.setCustomValidity('');
+        }
     }
 
-    const guardarBorrador = () => {
-        const data = {};
-        formElements.forEach(el => {
-            if (el.name) {
-                data[el.name] = el.value;
-            }
+    function mostrarUbicacion() {
+        let select = document.getElementById("area");
+        let ubicacion = select.options[select.selectedIndex].getAttribute("data-ubicacion");
+        document.getElementById("ubicacion").value = ubicacion || "";
+    }
+
+    function mostrarDepreciacion() {
+        let select = document.getElementById("tipo");
+        let dep = select.options[select.selectedIndex].getAttribute("data-dep");
+        document.getElementById("depreciacion").value = dep ? dep + "%" : "";
+    }
+
+    function actualizarAvisoMaxlength(campo) {
+        const max = parseInt(campo.getAttribute('maxlength'), 10);
+        const aviso = campo.nextElementSibling;
+        if (!max || !aviso || !aviso.classList.contains('aviso-limite')) return;
+
+        const alLimite = campo.value.length >= max;
+        campo.classList.toggle('limite-alcanzado', alLimite);
+        aviso.classList.toggle('d-none', !alLimite);
+    }
+
+    function inicializarAvisosMaxlength() {
+        document.querySelectorAll('.input-maxlength').forEach((campo) => {
+            campo.addEventListener('input', () => actualizarAvisoMaxlength(campo));
+            actualizarAvisoMaxlength(campo);
         });
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    };
 
-    formElements.forEach(el => {
-        el.addEventListener('input', guardarBorrador);
-        el.addEventListener('change', guardarBorrador);
-    });
+        const form = document.querySelector('.form-box');
+        if (form) {
+            form.addEventListener('reset', () => {
+                setTimeout(() => {
+                    document.querySelectorAll('.input-maxlength').forEach(actualizarAvisoMaxlength);
+                }, 0);
+            });
+        }
+    }
 
-    form.addEventListener('reset', () => {
-        sessionStorage.removeItem(STORAGE_KEY);
+    document.addEventListener('DOMContentLoaded', inicializarAvisosMaxlength);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        if (!form) return;
+
+        const STORAGE_KEY = 'borrador_activo';
+        let isSuccessAlert = false;
+
+        {% if exito %}
+        isSuccessAlert = true;
+        {% endif %}
+
+        const formElements = form.querySelectorAll('input, select, textarea');
+
+        const cargarBorrador = () => {
+            const guardado = sessionStorage.getItem(STORAGE_KEY);
+            if (guardado) {
+                try {
+                    const data = JSON.parse(guardado);
+                    formElements.forEach(el => {
+                        if (el.name && data[el.name] !== undefined) {
+                            el.value = data[el.name];
+                            el.dispatchEvent(new Event('change', { bubbles: true }));
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+                } catch (error) {
+                    console.error("Error al leer el borrador:", error);
+                }
+            }
+        };
+
+        if (isSuccessAlert) {
+            sessionStorage.removeItem(STORAGE_KEY);
+            form.reset();
+        } else {
+            cargarBorrador();
+        }
+
+        const guardarBorrador = () => {
+            const data = {};
+            formElements.forEach(el => {
+                if (el.name) {
+                    data[el.name] = el.value;
+                }
+            });
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        };
+
+        formElements.forEach(el => {
+            el.addEventListener('input', guardarBorrador);
+            el.addEventListener('change', guardarBorrador);
+        });
+
+        form.addEventListener('reset', () => {
+            sessionStorage.removeItem(STORAGE_KEY);
+        });
     });
-});
 </script>
 
 {% if exito %}
