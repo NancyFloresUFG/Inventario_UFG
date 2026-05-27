@@ -19,13 +19,13 @@
         <tbody>
             {% for area, activos in activos_por_area.items() %}
             <tr class="area-separator-row">
-                <td colspan="6">{{ area }}</td>
+                <td colspan="6">{{ area|capitalize }}</td>
             </tr>
             {% for a in activos %}
             <tr class="activo-row">
                 <td>{{ a.codigo }}</td>
                 <td>{{ a.nombre }}</td>
-                <td>{{ area }}</td>
+                <td>{{ area|capitalize }}</td>
                 <td>{{ a.responsable or 'Sin responsable' }}</td>
                 <td>
                     <span class="estado {{ a.estado|lower|replace(' ', '-') }}">

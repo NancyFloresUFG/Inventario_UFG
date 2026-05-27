@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from db import conectar
 from utils.seguridad import requiere_admin
 
@@ -21,9 +21,10 @@ def retiros():
         cursor.execute("SELECT * FROM activos_fijos WHERE codigo=%s", (codigo,))
         activo = cursor.fetchone()
 
-        if not activo:
+        if not activo or activo['estado'] == 'Retirado':
             conn.close()
-            return "Activo no encontrado"
+            flash("Activo no encontrado o ya fue retirado.", "error")
+            return redirect(url_for('retiros.retiros'))
 
         id_activo = activo['id_activo']
 
