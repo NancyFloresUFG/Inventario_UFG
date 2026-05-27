@@ -259,13 +259,13 @@ function buscarActivo() {
         }
 
         document.getElementById("codigo_hidden").value    = codigo;
-        document.getElementById("info_codigo").innerText  = data.codigo;
-        document.getElementById("info_serie").innerText   = data.serie        || '-';
-        document.getElementById("info_nombre").innerText  = data.nombre       || '-';
-        document.getElementById("info_area").innerText    = data.area         || '-';
+        document.getElementById("info_codigo").innerText      = data.codigo      || '-';
+        document.getElementById("info_serie").innerText       = data.serie       || '-';
+        document.getElementById("info_nombre").innerText      = data.nombre      || '-';
+        document.getElementById("info_area").innerText        = data.area        || '-';
         document.getElementById("info_responsable").innerText = data.responsable || '-';
-        document.getElementById("info_uso").innerText     = data.uso          || '-';
-        document.getElementById("info_estado").innerText  = data.estado       || '-';
+        document.getElementById("info_uso").innerText         = data.uso         || '-';
+        document.getElementById("info_estado").innerText      = data.estado      || '-';
 
         document.getElementById("btnGuardar").disabled = false;
     })
